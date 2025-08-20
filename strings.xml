@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">TouchOverlayAI</string>
+  <string name="overlay_permission">برای نمایش روی برنامه‌ها، مجوز اورلی را فعال کنید.</string>
+  <string name="accessibility_permission">برای اجرای لمس شبیه‌سازی‌شده، سرویس دسترس‌پذیری را فعال کنید.</string>
+</resources>
