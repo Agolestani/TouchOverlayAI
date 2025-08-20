@@ -20,18 +20,26 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android platforms & build-tools
+      - name: Accept licenses & install SDK packages
         run: |
           yes | sdkmanager --licenses
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+          sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.2"
 
-      - name: Set up Gradle 8.7
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.7
+      # --- مهم: نصب Gradle و ساخت Wrapper ---
+      - name: Install Gradle via apt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gradle
+          gradle --version
 
+      - name: Generate Gradle wrapper (8.7)
+        run: |
+          gradle wrapper --gradle-version 8.7
+          chmod +x gradlew
+
+      # --- بیلد APK با Wrapper تازه ---
       - name: Build Debug APK
-        run: gradle assembleDebug --no-daemon
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
