@@ -25,7 +25,7 @@ jobs:
           yes | sdkmanager --licenses
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.2"
 
-      # --- مهم: نصب Gradle و ساخت Wrapper ---
+      # 👇 این دو مرحله حتماً باید وجود داشته باشه
       - name: Install Gradle via apt
         run: |
           sudo apt-get update
@@ -37,7 +37,6 @@ jobs:
           gradle wrapper --gradle-version 8.7
           chmod +x gradlew
 
-      # --- بیلد APK با Wrapper تازه ---
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --stacktrace
 
